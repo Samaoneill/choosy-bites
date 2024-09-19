@@ -17,6 +17,8 @@ export function useRecipes(query: string | null): UseRecipesResult {
     queryKey: ["recipes", query],
     queryFn: () => getRecipes(query || ""),
     retry: false,
+    enabled: !!query,
+    refetchOnWindowFocus: false,
   });
 
   return { isPending, recipes, error };

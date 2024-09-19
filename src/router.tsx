@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AccountPage from "./pages/AccountPage";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import SavedRecipesPage from "./pages/SavedRecipesPage";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,10 @@ const router = createBrowserRouter([
       { path: "/register", element: <RegisterPage /> },
       {
         element: <ProtectedRoute />,
-        children: [{ path: "/account", element: <AccountPage /> }],
+        children: [
+          { path: "/account", element: <AccountPage /> },
+          { path: "/saved-recipes", element: <SavedRecipesPage /> },
+        ],
       },
     ],
   },

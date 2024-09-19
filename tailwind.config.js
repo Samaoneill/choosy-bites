@@ -15,6 +15,7 @@ export default {
       white: colors.white,
       gray: colors.gray,
       red: colors.red,
+      green: colors.green,
       food: {
         50: "#faf5f0",
         100: "#f5eae1",

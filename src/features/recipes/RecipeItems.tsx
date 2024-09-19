@@ -1,13 +1,14 @@
 import { useTagsContext } from "../../context/TagContext";
 import { useRecipes } from "./useRecipes";
 import RecipeItem from "./RecipeItem";
+import Spinner from "../../ui/Spinner";
 
 function RecipeItems() {
   const { tags } = useTagsContext();
   const term = tags.join(",");
   const { isPending, recipes, error } = useRecipes(term);
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <Spinner />;
   if (error) return <div>Error loading recipes</div>;
   if (!recipes || recipes.length === 0)
     return (

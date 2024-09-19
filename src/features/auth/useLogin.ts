@@ -15,7 +15,7 @@ export function useLogin() {
     onSuccess: (user) => {
       if (user) {
         queryClient.setQueryData(["user"], user.user);
-        toast.success("Login successful!");
+        toast.success("Login successful");
         navigate("/account", { replace: true });
       }
     },

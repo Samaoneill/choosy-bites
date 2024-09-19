@@ -1,19 +1,23 @@
 import { Link, useParams } from "react-router-dom";
 import { UseRecipe } from "./useRecipe";
+import { useCreateRecipe } from "./useCreateRecipe";
+import Spinner from "../../ui/Spinner";
 
 function RecipeDetail() {
   const { recipeId } = useParams() as { recipeId: string };
   const { isPending, recipe, error } = UseRecipe(recipeId);
+  const { isCreating, createRecipe } = useCreateRecipe();
 
-  if (isPending)
-    return (
-      <div className="flex min-h-screen items-center justify-center text-white">
-        Loading...
-      </div>
-    );
+  if (isPending) return <Spinner />;
+
   if (error)
     return <div className="text-center text-red-500">Error loading recipe</div>;
   if (!recipe) return <div className="text-center">No recipe found</div>;
+
+  function handleSave(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    createRecipe({ recipe_id: recipeId });
+  }
 
   return (
     <article className="w-full rounded-lg bg-food-500 p-6 text-white">
@@ -35,6 +39,9 @@ function RecipeDetail() {
         </div>
 
         <div className="space-y-4 md:w-2/3">
+          <button onClick={handleSave}>
+            {isCreating ? "Saving..." : "Save Recipe"}
+          </button>
           <h1 className="text-4xl font-bold">{recipe.title}</h1>
           <ul className="space-y-2">
             <li>

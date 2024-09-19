@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useUser } from "../features/auth/useUser";
+import Spinner from "./Spinner";
 
 function ProtectedRoute() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function ProtectedRoute() {
     [isAuthenticated, isLoading, navigate],
   );
 
-  if (isLoading) return <div>...Loading</div>;
+  if (isLoading) return <Spinner />;
   if (isAuthenticated) return <Outlet />;
 
   return null;

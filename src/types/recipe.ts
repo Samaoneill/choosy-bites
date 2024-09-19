@@ -29,3 +29,18 @@ export interface RecipeSummary {
   image: string;
   usedIngredients: { name: string }[];
 }
+
+export interface SavedRecipeSummary {
+  id: number;
+  title: string;
+  image: string;
+  servings: number;
+  readyInMinutes: number;
+  summary: string;
+  sourceUrl: string;
+  sourceName: string;
+  dairyFree: boolean;
+  glutenFree: boolean;
+  vegan: boolean;
+  vegetarian: boolean;
+}

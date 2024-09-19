@@ -1,4 +1,8 @@
-import { ExtendedIngredient, RecipeDetail } from "../types/recipe";
+import {
+  ExtendedIngredient,
+  RecipeDetail,
+  SavedRecipeSummary,
+} from "../types/recipe";
 import { RecipeSummary } from "../types/recipe";
 import { MAX_RECIPES_SIZE } from "../utils/constants";
 import { spoonacular_app_key } from "./spoonacular";
@@ -22,6 +26,48 @@ export async function getRecipes(query: string) {
       })),
     };
   });
+}
+
+export async function getRecipesByID(query: string) {
+  const res = await fetch(
+    `https://api.spoonacular.com/recipes/informationBulk?apiKey=${spoonacular_app_key}&ids=${query}`,
+  );
+
+  if (!res.ok) throw new Error("Could not load recipes");
+
+  const data: SavedRecipeSummary[] = await res.json();
+
+  return data.map(
+    ({
+      id,
+      title,
+      image,
+      servings,
+      readyInMinutes,
+      sourceUrl,
+      sourceName,
+      dairyFree,
+      glutenFree,
+      vegan,
+      vegetarian,
+      summary,
+    }) => {
+      return {
+        id,
+        title,
+        image,
+        servings,
+        readyInMinutes,
+        sourceUrl,
+        sourceName,
+        dairyFree,
+        glutenFree,
+        vegan,
+        vegetarian,
+        summary,
+      };
+    },
+  );
 }
 
 export async function getRecipe(id: string) {
